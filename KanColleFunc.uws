@@ -1,0 +1,109 @@
+// import
+CALL "Constants.uws"
+
+// 艦これの操作
+Class KanColleFunc
+	// 母港に戻る
+	Procedure backToHome()
+		BTN(LEFT, CLICK, Constants.LeftUpButton_X, Constants.LeftUpButton_Y,500)
+	Fend
+
+	//////////////////
+	// 【総合操作】 //
+	//////////////////
+	// 遠征チェック
+	// （出撃ボタンを押してから母港に戻る）
+	Procedure checkExpedition()
+		FromHome.sally()
+		backToHome()
+	Fend
+	// 第N艦隊に補給する
+	Procedure supplyNth(n)
+		FromHome.supply()			// 母港→補給ボタン
+		FromSupply.supplyNth(n)		// 第N艦隊補給画面へ
+		FromSupply.supplyCheck()	// 補給チェック
+		FromSupply.fullSupply()		// まとめて補給ボタン
+		backToHome()				// 母港へ戻る
+	Fend
+	
+	// 第N艦隊が遠征（ページpage, 上からx番目）に出発する
+	Procedure expedition(n, page, x)
+		FromHome.sally()					// 母港→出撃ボタン
+		FromSally.expedition()				// 出撃画面→遠征ボタン
+		FromExpedition.selectPage(page)		// ページ選択
+		FromExpedition.selectExpedition(x)	// 遠征選択
+		FromExpedition.decide()				// 決定ボタン
+		FromExpedition.selectFleet(n)		// 第N艦隊選択
+		FromExpedition.decide()				// 遠征開始ボタン
+		backToHome()						// 母港へ戻る
+	Fend
+EndClass
+
+////////////////////////
+// 【母港からの操作】 //
+////////////////////////
+Class FromHome
+	// 出撃ボタンを押す
+	Procedure sally()
+		BTN(LEFT, CLICK, Constants.SallyButton_X, Constants.SallyButton_Y, 1500)
+	Fend
+	// 補給ボタンを押す
+	Procedure supply()
+		BTN(LEFT, CLICK, Constants.SupplyButton_X, Constants.SupplyButton_Y)
+	Fend
+EndClass
+
+////////////////////////////
+// 【補給画面からの操作】 //
+////////////////////////////
+Class FromSupply
+	// 第N艦隊の補給画面へ
+	Procedure supplyNth(n)
+		BTN(LEFT, CLICK, Constants.Supply1st_X + Constants.SupplyDistance * (n-1), Constants.Supply1st_Y, 500)
+	Fend
+	// 補給チェックボックスにチェックを入れる
+	Procedure supplyCheck()
+		BTN(LEFT, CLICK, Constants.SupplyCheckBox_X, Constants.SupplyCheckBox_Y, 500)
+	Fend
+	// まとめて補給ボタンを押す
+	Procedure fullSupply()
+		BTN(LEFT, CLICK, Constants.FullSupplyButton_X, Constants.FullSupplyButton_Y, 500)
+		SLEEP(0.5)
+	Fend
+EndClass
+
+////////////////////////////
+// 【出撃画面からの操作】 //
+////////////////////////////
+Class FromSally
+	// 遠征ボタンを押す
+	Procedure expedition()
+		BTN(LEFT, CLICK, Constants.Expedition_X, Constants.Expedition_Y, 1000)
+	Fend
+EndClass
+
+////////////////////////////
+// 【遠征画面からの操作】 //
+////////////////////////////
+Class FromExpedition
+	// 8つのうちどの遠征を選ぶか（n = 1 to 8）
+	Procedure selectExpedition(n)
+		BTN(LEFT, CLICK, Constants.TopExpedition_X, Constants.TopExpedition_Y + Constants.ExpeditionDistance * (n-1), 1000)
+	Fend
+	
+	// ページの移動（page = 1 to 5）
+	Procedure selectPage(page)
+		BTN(LEFT, CLICK, Constants.ExpeditionPage_X + Constants.ExpeditionPageDistance * (page - 1), Constants.ExpeditionPage_Y, 1000)
+	Fend
+	
+	// 決定ボタンを押す
+	Procedure decide()
+		BTN(LEFT, CLICK, Constants.ExpeditionDecide_X, Constants.ExpeditionDecide_Y, 500)
+		SLEEP(0.5)
+	Fend
+	
+	// 第N艦隊選択（n = 2 to 4）
+	Procedure selectFleet(n)
+		BTN(LEFT, CLICK, Constants.ExpeditionFleet_X + Constants.ExpeditionFleetDistance * (n - 1), Constants.ExpeditionFleet_Y, 1000)
+	Fend
+EndClass

@@ -1,0 +1,25 @@
+// 艦これ自動操縦
+
+//import
+CALL "Constants.uws"
+CALL "KanColleFunc.uws"
+
+// ウィンドウID
+WID = GETID(Constants.WindowTitle)
+
+// キーボード、マウスの入力をブロック
+StopFrom( FALSE )
+LOCKHARD( TRUE )
+
+// ウィンドウをアクティブに
+CTRLWIN(WID, ACTIVATE)
+
+// マウス座標系をウィンドウ相対座標に
+MOUSEORG(WID, 0)
+
+// メイン操作
+KanColleFunc.supplyNth(3)			// 第N艦隊に補給する
+KanColleFunc.expedition(3, 1, 6)	// 第N艦隊をpページ目のx番目の遠征に行かせる
+
+// ブロックを解除
+LOCKHARD( FALSE )

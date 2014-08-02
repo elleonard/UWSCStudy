@@ -1,0 +1,78 @@
+// 定数
+// 座標はwindow size 100%時のもの
+Class Constants
+	// ウィンドウタイトル
+	Const WindowTitle = "提督業も忙しい！"
+
+	// 左上の母港に戻るボタン
+	Const LeftUpButton_X = 10
+	Const LeftUpButton_Y = 50
+	
+	// 戦績表示ボタン
+	Const RecordButton_X = 170
+	Const RecordButton_Y = 100
+
+	//////////////////
+	// 【母港画面】 //
+	//////////////////
+	// 出撃ボタン
+	Const SallyButton_X = 170
+	Const SallyButton_Y = 300
+
+	// 補給ボタン
+	Const SupplyButton_X = 90
+	Const SupplyButton_Y = 270
+
+	//////////////////
+	// 【補給画面】 //
+	//////////////////
+	// 補給画面第1艦隊ボタン
+	Const Supply1st_X = 140
+	Const Supply1st_Y = 150
+
+	// 補給画面第N艦隊ボタンの距離
+	Const SupplyDistance = 30
+
+	// 補給全チェックボックス
+	Const SupplyCheckBox_X = 115
+	Const SupplyCheckBox_Y = 150
+
+	// まとめて補給ボタン
+	Const FullSupplyButton_X = 700
+	Const FullSupplyButton_Y = 470
+	
+	//////////////////
+	// 【出撃画面】 //
+	//////////////////
+	// 遠征ボタン
+	Const Expedition_X = 700
+	Const Expedition_Y = 300
+	
+	//////////////////
+	// 【遠征画面】 //
+	//////////////////
+	// １番上の遠征
+	Const TopExpedition_X = 170
+	Const TopExpedition_Y = 200
+	
+	// 遠征の上下距離
+	Const ExpeditionDistance = 30
+	
+	// ページ切り替えボタン
+	Const ExpeditionPage_X = 150
+	Const ExpeditionPage_Y = 470
+	
+	Const ExpeditionPageDistance = 65
+	
+	// 決定ボタン
+	// まとめて補給ボタン
+	Const ExpeditionDecide_X = 700
+	Const ExpeditionDecide_Y = 470
+	
+	// 第1艦隊
+	Const ExpeditionFleet_X = 360
+	Const ExpeditionFleet_Y = 150
+	
+	Const ExpeditionFleetDistance = 30
+
+EndClass
