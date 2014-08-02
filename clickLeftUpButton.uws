@@ -1,0 +1,16 @@
+// ウィンドウタイトル
+WINDOW_TITLE = "提督業も忙しい！"
+
+// ウィンドウID
+WID = GETID(WINDOW_TITLE)
+
+// キーボード、マウスの入力をブロック
+StopForm(False)
+LockHard( True )
+
+// ウィンドウの相対座標10,10を左クリック
+MOUSEORG(WID, 0)
+BTN(LEFT, CLICK, 10,50)
+
+// ブロックを解除
+LockHard( False )
