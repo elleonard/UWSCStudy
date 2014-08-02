@@ -1,0 +1,7 @@
+Class Util
+	Procedure Click(x, y, wait)
+		BTN(LEFT, DOWN, x, y, 10)
+		BTN(LEFT, UP, x, y, 10)
+		SLEEP(wait)
+	Fend
+EndClass

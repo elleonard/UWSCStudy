@@ -1,25 +1,55 @@
-// 艦これ自動操縦
+// 艦これ自動遠征
 
 //import
 CALL "Constants.uws"
 CALL "KanColleFunc.uws"
+CALL "ExpeditionData.uws"
 
-// ウィンドウID
-WID = GETID(Constants.WindowTitle)
+// While trueとGetTimeとSleepを組み合わせてぐるぐる回す
+// （Threadだと処理がぶつかる）
 
-// キーボード、マウスの入力をブロック
-StopFrom( FALSE )
-LOCKHARD( TRUE )
+Dim time[] = 0,0,0,0,0
 
-// ウィンドウをアクティブに
-CTRLWIN(WID, ACTIVATE)
+WHILE TRUE
+	// トークン更新対策
+	WID = GETID(Constants.TokenUpdateTitle)
+	IF WID <> -1 THEN CLKITEM(WID, "キャンセル", CLK_BTN)
 
-// マウス座標系をウィンドウ相対座標に
-MOUSEORG(WID, 0)
+	// ウィンドウID
+	WID = GETID(Constants.WindowTitle)
 
-// メイン操作
-KanColleFunc.supplyNth(3)			// 第N艦隊に補給する
-KanColleFunc.expedition(3, 1, 6)	// 第N艦隊をpページ目のx番目の遠征に行かせる
+	// キーボード、マウスの入力をブロック
+	STOPFORM( FALSE )
+	LOCKHARD( TRUE )
 
-// ブロックを解除
-LOCKHARD( FALSE )
+	// ウィンドウをアクティブに
+	CTRLWIN(WID, ACTIVATE)
+
+	// マウス座標系をウィンドウ相対座標に
+	MOUSEORG(WID, 0)
+
+	// メイン操作
+	FOR i = 2 TO 4
+		time[i] = GETTIME()
+		//FUKIDASI("第"+i+"艦隊 next : "+ExpeditionData.getNextTime(i), 500, 500)
+		IFB ExpeditionData.getNextTime(i) < GETTIME() THEN
+			KanColleFunc.checkExpedition()		// 遠征リザルトをチェックする
+		ENDIF
+	NEXT
+	FOR i = 2 TO 4
+		IFB ExpeditionData.getNextTime(i) < time[i] THEN
+			KanColleFunc.supplyNth(i)			// 第N艦隊に補給する
+			// 第N艦隊をpページ目のx番目の遠征に行かせる
+			KanColleFunc.expedition(i, ExpeditionData.getPage(i), ExpeditionData.getNum(i))
+			// 次の時間を計算
+			ExpeditionData.setNextTime(i)
+			//FUKIDASI("第"+i+"艦隊 next : "+ExpeditionData.getNextTime(i), 500, 500)
+		ENDIF
+	NEXT
+
+	// ブロックを解除
+	LOCKHARD( FALSE )
+
+	// 10分待機
+	SLEEP(600)
+WEND

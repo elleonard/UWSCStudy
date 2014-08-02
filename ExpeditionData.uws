@@ -1,0 +1,70 @@
+Class ExpeditionData
+	// 第2艦隊
+	// page:1 num:4（対潜警戒任務）
+	Const SecondFleet_Page = 1
+	Const SecondFleet_Num = 4
+	Const SecondFleet_Interval = 50 * 60	// 50分
+	Dim SecondNextTime = 0
+	
+	// 第3艦隊
+	// page:1 num:6（防空射撃演習）
+	Const ThirdFleet_Page = 1
+	Const ThirdFleet_Num = 6
+	Const ThirdFleet_Interval = 40 * 60	// 40分
+	Dim ThirdNextTime = 0
+	
+	// 第4艦隊
+	// page:1 num:2（長距離練習航海）
+	Const FourthFleet_Page = 1
+	Const FourthFleet_Num = 2
+	Const FourthFleet_Interval = 30 * 60	// 30分
+	Dim FourthNextTime = 0
+	
+	// 第N艦隊のページを返す
+	Function getPage(n)
+		SELECT n
+		CASE 2
+			Result = SecondFleet_Page
+		CASE 3
+			Result = ThirdFleet_Page
+		CASE 4
+			Result = FourthFleet_Page
+		SELEND
+	Fend
+	
+	// 第N艦隊の何番目の遠征に行くかを返す
+	Function getNum(n)
+		SELECT n
+		CASE 2
+			Result = SecondFleet_Num
+		CASE 3
+			Result = ThirdFleet_Num
+		CASE 4
+			Result = FourthFleet_Num
+		SELEND
+	Fend
+	
+	// 第N艦隊のnextTimeを返す
+	Function getNextTime(n)
+		SELECT n
+		CASE 2
+			Result = SecondNextTime
+		CASE 3
+			Result = ThirdNextTime
+		CASE 4
+			Result = FourthNextTime
+		SELEND
+	Fend
+	
+	// 第N艦隊のnextTimeをセットする
+	Procedure setNextTime(n)
+		SELECT n
+		CASE 2
+			SecondNextTime = GETTIME() + SecondFleet_Interval
+		CASE 3
+			ThirdNextTime = GETTIME() + ThirdFleet_Interval
+		CASE 4
+			FourthNextTime = GETTIME() + FourthFleet_Interval
+		SELEND
+	Fend
+EndClass

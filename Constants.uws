@@ -2,6 +2,7 @@
 // 座標はwindow size 100%時のもの
 Class Constants
 	// ウィンドウタイトル
+	Const TokenUpdateTitle = "Web ページからのメッセージ"
 	Const WindowTitle = "提督業も忙しい！"
 
 	// 左上の母港に戻るボタン
@@ -22,6 +23,10 @@ Class Constants
 	// 補給ボタン
 	Const SupplyButton_X = 90
 	Const SupplyButton_Y = 270
+	
+	// ボタンのない部分
+	Const EmptyButton_X = 400
+	Const EmptyButton_Y = 300
 
 	//////////////////
 	// 【補給画面】 //
