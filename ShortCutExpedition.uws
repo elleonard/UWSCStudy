@@ -1,0 +1,38 @@
+// 艦これ遠征ショートカット
+
+//import
+CALL "Constants.uws"
+CALL "KanColleFunc.uws"
+CALL "ExpeditionData.uws"
+
+// 引数
+// PARAM_STR[0] : 第N艦隊
+// 			[1] : ページ
+// PARAM_STR[2] : Num
+
+// トークン更新対策
+WID = GETID(Constants.TokenUpdateTitle)
+IF WID <> -1 THEN CLKITEM(WID, "キャンセル", CLK_BTN)
+
+// ウィンドウID
+WID = GETID(Constants.WindowTitle)
+
+// キーボード、マウスの入力をブロック
+STOPFORM( FALSE )
+LOCKHARD( TRUE )
+
+// ウィンドウをアクティブに
+CTRLWIN(WID, ACTIVATE)
+
+// マウス座標系をウィンドウ相対座標に
+MOUSEORG(WID, 0)
+
+IFB PARAM_STR[0] <> EMPTY THEN
+	KanColleFunc.supplyNth(PARAM_STR[0])			// 第N艦隊に補給する
+	// 第N艦隊をpページ目のx番目の遠征に行かせる
+	KanColleFunc.expedition(PARAM_STR[0], PARAM_STR[1], PARAM_STR[2])
+ENDIF
+
+// ブロックを解除
+LOCKHARD( FALSE )
+

@@ -6,7 +6,7 @@ CALL "Util.uws"
 Class KanColleFunc
 	// 母港に戻る
 	Procedure backToHome()
-		Util.Click(Constants.LeftUpButton_X, Constants.LeftUpButton_Y, 1.5)
+		Util.Click(Constants.LeftUpButton_X, Constants.LeftUpButton_Y, 2.5)
 	Fend
 
 	//////////////////
@@ -64,7 +64,7 @@ EndClass
 Class FromSupply
 	// 第N艦隊の補給画面へ
 	Procedure supplyNth(n)
-		Util.Click(Constants.Supply1st_X + Constants.SupplyDistance * (n-1), Constants.Supply1st_Y, 0.5)
+		Util.Click(Constants.Supply1st_X + Constants.SupplyDistance * (n-1), Constants.Supply1st_Y, 1.8)
 	Fend
 	// 補給チェックボックスにチェックを入れる
 	Procedure supplyCheck()
@@ -82,7 +82,7 @@ EndClass
 Class FromSally
 	// 遠征ボタンを押す
 	Procedure expedition()
-		Util.Click(Constants.Expedition_X, Constants.Expedition_Y, 1)
+		Util.Click(Constants.Expedition_X, Constants.Expedition_Y, 2.5)
 	Fend
 EndClass
 
@@ -107,6 +107,6 @@ Class FromExpedition
 	
 	// 第N艦隊選択（n = 2 to 4）
 	Procedure selectFleet(n)
-		Util.Click(Constants.ExpeditionFleet_X + Constants.ExpeditionFleetDistance * (n - 1), Constants.ExpeditionFleet_Y, 1)
+		IF n <> 2 THEN Util.Click(Constants.ExpeditionFleet_X + Constants.ExpeditionFleetDistance * (n - 1), Constants.ExpeditionFleet_Y, 1)
 	Fend
 EndClass

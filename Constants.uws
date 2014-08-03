@@ -71,7 +71,7 @@ Class Constants
 	
 	// 決定ボタン
 	// まとめて補給ボタン
-	Const ExpeditionDecide_X = 700
+	Const ExpeditionDecide_X = 680
 	Const ExpeditionDecide_Y = 470
 	
 	// 第1艦隊

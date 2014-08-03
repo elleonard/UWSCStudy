@@ -1,0 +1,41 @@
+// DB読み込み
+// 遠征名,ページ,上から何番目,時間（分）
+
+Class ExpeditionDB
+	// ファイル名
+	Dim dbFile = "expedition_db.txt"
+	
+	// ファイルオープン
+	Dim fid = FOPEN(dbFile, F_READ)
+	
+	// 行数は？
+	Dim lineCount = FGET(fid, -1)
+
+	// 遠征名からページ,上から何番目,時間を返す
+	Function getExpedition(exp)
+		// 各行の読み込み
+		FOR i = 1 to lineCount
+			line = FGET(fid, i)
+			line = ExpeditionDB.deleteComment(line)
+			line = ExpeditionDB.deleteTabSpace(line)
+			// 空行はスキップ
+			IF line = "" THEN CONTINUE
+			IFB FGET(fid, i, 1) = exp
+				Dim ret[] = FGET(fid, i, 2), FGET(fid, i, 3), FGET(fid, i, 4) * 60
+				Result = slice(ret, 0, length(ret) - 1)
+			ENDIF
+		NEXT
+	Fend
+
+	// コメントを削除する
+	Function deleteComment(line)
+		s = "s"+line+"//"
+		Result = BETWEENSTR(s, "s", "//")
+	Fend
+	
+	// TabSpaceを除去する
+	Function deleteTabSpace(line)
+		s = REPLACE(line, " ", "")
+		Result = REPLACE(s, "	", "")
+	Fend
+EndClass
